@@ -1,0 +1,14 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: initial;
+    color: #fff;
+}
+
+a,p,span,img,div{
+    user-select: none;
+    -moz-user-select: none;
+}
