@@ -1,16 +1,22 @@
 <template>
   <div id="app">
-    <Index/>
+    <Topbar />
+    <!-- <Index/> -->
+    <Picture />
   </div>
 </template>
 
 <script>
-import Index from './components/index.vue'
+import Topbar from "./components/topbar.vue";
+// import Index from './components/index.vue'
+import Picture from './components/picture.vue'
 
 export default {
   name: 'App',
   components: {
-    Index
+    Topbar,
+    // Index,
+    Picture
   }
 }
 </script>

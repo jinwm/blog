@@ -1,20 +1,11 @@
 <template>
-  <transition name="scale">
+  <transition name="on">
     <div v-if="pageShow" class="container">
-      <div class="topbar">
-        <a href="javascript:;" title="JINWM's blog" class="logo">JINWM</a>
-        <div class="navbox">
-          <a href="javascript:;" title="个人简介" class="nav-item">个人简介</a>
-          <a href="javascript:;" title="航拍作品" class="nav-item">航拍作品</a>
-          <a href="javascript:;" title="技术分享" class="nav-item">技术分享</a>
-        </div>
-      </div>
       <div class="main">
-        <!-- <div class="slogan">JINWM个人博客</div> -->
-        <div class="slogan">JIJIJIJ</div>
+        <div class="slogan">JINWM个人博客</div>
         <div class="desc">
-          <span>{{ desc.txt.slice(0, desc.ind) }}</span>
-          <i v-if="desc.ind < desc.txt.length"></i>
+          <span>{{ descTxt }}</span>
+          <i v-if="descTxt.length < desc.txt.length"></i>
         </div>
         <div class="btns">
           <a href="javascript:;" title="按钮" class="btn">按钮</a>
@@ -28,28 +19,36 @@
 <script>
 export default {
   name: "index",
-  props: {
-    msg: String,
-  },
   data: function () {
     return {
       pageShow: false,
+      descTimer: null,
       desc: {
-        ind: 0,
+        index: 0,
         txt: "欢迎来到我的个人博客，\n这里记录着我的航拍作品，以及前端技术的探索和实践。\n用镜头记录美好，用代码书写未来，\n让我们一起探寻更多可能性吧！",
       },
     };
+  },
+  computed: {
+    descTxt: function () {
+      let { txt, index } = this.desc;
+      return txt.slice(0, index);
+    },
   },
   mounted: function () {
     this.pageShow = true;
 
     setTimeout(() => {
-      setInterval(() => {
-        if (this.desc.txt.length > this.desc.ind) {
-          this.desc.ind += 1;
+      this.descTimer = setInterval(() => {
+        if (this.desc.txt.length < this.desc.index) {
+          return clearInterval(this.descTimer);
         }
-      }, 195);
-    }, 1200);
+        this.desc.index++;
+      }, 180);
+    }, 1100);
+  },
+  destroyed: function () {
+    clearInterval(this.descTimer);
   },
 };
 </script>
@@ -58,7 +57,9 @@ export default {
 .container {
   width: 100%;
   height: 100vh;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   overflow: hidden;
 
   &::after {
@@ -83,55 +84,6 @@ export default {
     height: 100%;
     background: rgba(0, 0, 0, 0.45);
     pointer-events: none;
-  }
-
-  .topbar {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px 40px 30px;
-    width: 100%;
-    height: 80px;
-    box-sizing: border-box;
-    transition: all 1s;
-    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: -100%;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      box-shadow: 0 8px 150px rgba(0, 0, 0, 1);
-      pointer-events: none;
-    }
-
-    .logo {
-      font-size: 28px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .navbox {
-      width: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: relative;
-      z-index: 1;
-
-      .nav-item {
-        display: inline-block;
-        width: 180px;
-        height: 50px;
-        text-align: center;
-        font-size: 14px;
-        line-height: 50px;
-        margin: 0 20px;
-      }
-    }
   }
 
   .main {
@@ -168,7 +120,7 @@ export default {
         margin-top: -3px;
         background: #fff;
         vertical-align: middle;
-        animation: opacity 0.5s infinite ease-in-out alternate;
+        animation: opacity 0.4s infinite ease-in-out alternate;
         pointer-events: none;
 
         @keyframes opacity {
@@ -204,17 +156,12 @@ export default {
 }
 
 // 过渡
-.scale-enter-active,
-.scale-leave-active {
+.on-enter-active,
+.on-leave-active {
 }
-.scale-enter, .scale-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.on-enter, .on-leave-to /* .fade-leave-active below version 2.1.8 */ {
   &::after {
     transform: scale(1.2);
-  }
-
-  .topbar {
-    transform: translateY(-100%);
-    opacity: 0;
   }
 
   .main {
