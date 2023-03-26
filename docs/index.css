@@ -1,14 +1,46 @@
-html,body{
+html,
+body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    max-width: 1920px;
+    min-width: 1200px;
+    margin: 0 auto;
 }
 
-a{
+a {
     text-decoration: initial;
     color: #fff;
 }
 
-a,p,span,img,div{
+h1,
+h2,
+h3,
+h4,
+a,
+p,
+span,
+img,
+div {
     user-select: none;
     -moz-user-select: none;
+    margin: 0;
+    padding: 0;
 }
+
+/* *::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+    box-shadow: none;
+    background: #f5f5f5bc;
+    border-top: 0;
+    border-bottom: 0;
+    box-sizing: border-box;
+}
+
+*::-webkit-scrollbar-track {
+    box-shadow: none;
+    background: #333333;
+} */

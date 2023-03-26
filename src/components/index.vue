@@ -8,8 +8,8 @@
           <i v-if="descTxt.length < desc.txt.length"></i>
         </div>
         <div class="btns">
-          <a href="javascript:;" title="按钮" class="btn">按钮</a>
-          <a href="javascript:;" title="按钮" class="btn">按钮</a>
+          <a href="#/picture" title="开始" class="btn">开始</a>
+          <!-- <a href="javascript:;" title="按钮" class="btn">按钮</a> -->
         </div>
       </div>
     </div>
@@ -25,7 +25,8 @@ export default {
       descTimer: null,
       desc: {
         index: 0,
-        txt: "欢迎来到我的个人博客，\n这里记录着我的航拍作品，以及前端技术的探索和实践。\n用镜头记录美好，用代码书写未来，\n让我们一起探寻更多可能性吧！",
+        txt: "当摄影、设计和编程的力量相遇\n，一个属于自己的个人博客世界就此诞生。\n在这里，记录生活的点滴，\n分享创作的心得，探索无限的可能性。",
+        // txt: "欢迎来到我的个人博客，\n这里记录着我的航拍作品，以及前端技术的探索和实践。\n用镜头记录美好，用代码书写未来，\n让我们一起探寻更多可能性吧！",
       },
     };
   },
@@ -44,7 +45,7 @@ export default {
           return clearInterval(this.descTimer);
         }
         this.desc.index++;
-      }, 180);
+      }, 140);
     }, 1100);
   },
   destroyed: function () {
@@ -82,7 +83,8 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.45);
+    background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.65));
+    opacity: .7;
     pointer-events: none;
   }
 
@@ -97,7 +99,7 @@ export default {
 
     .slogan {
       font-size: 50px;
-      color: #fff;
+      color: #f5f5f5;
       letter-spacing: 4px;
     }
 
@@ -105,9 +107,9 @@ export default {
       margin: 20px 0 30px;
       line-height: 27px;
       width: 100%;
-      min-height: 70px;
+      min-height: 100px;
       span {
-        color: #fff;
+        color: #f5f5f5;
         letter-spacing: 8px;
         font-size: 16px;
         white-space: pre;
@@ -118,7 +120,7 @@ export default {
         height: 1.2em;
         width: 2px;
         margin-top: -3px;
-        background: #fff;
+        background: #f5f5f5;
         vertical-align: middle;
         animation: opacity 0.4s infinite ease-in-out alternate;
         pointer-events: none;
@@ -144,12 +146,18 @@ export default {
         margin: 0 20px;
         width: 160px;
         height: 40px;
-        border: 2px solid #fff;
+        border: 2px solid #f5f5f5;
         box-sizing: border-box;
         border-radius: 30px;
         text-align: center;
-        font-size: #fff;
+        font-size: #f5f5f5;
         line-height: 40px;
+        transition: all 0.5s ease-in-out;
+
+        &:hover {
+          transform: scale(0.96);
+          opacity: 0.9;
+        }
       }
     }
   }
