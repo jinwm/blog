@@ -29,8 +29,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #000;
-  min-width: 1200px;
-  max-width: 1920px;
+  // min-width: 1200px;
+  // max-width: 1920px;
   overflow: hidden;
   background: #f5f5f5;
 }

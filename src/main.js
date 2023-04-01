@@ -4,6 +4,7 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { VueMasonryPlugin } from 'vue-masonry'; // 瀑布流插件
+import './tools/resize.js'
 
 Vue.use(VueMasonryPlugin);
 Vue.use(ElementUI);

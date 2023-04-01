@@ -2,26 +2,18 @@
   <transition name="on">
     <div v-if="show" class="topbar" :class="className">
       <div class="inner">
-        <router-link to="/">
-          <a href="javascript:;" title="JINWM" class="logo">JINWM</a>
-        </router-link>
+        <router-link to="/" title="JINWM" class="logo">JINWM</router-link>
         <div class="navbox">
-          <router-link to="/">
-            <a href="javascript:;" title="博客首页" class="nav-item"
-              >博客首页</a
-            >
-          </router-link>
-          <!-- <router-link to="/"> -->
-          <a href="javascript:;" title="个人简介" class="nav-item">个人简介</a>
-          <!-- </router-link> -->
-          <router-link to="/picture">
-            <a href="javascript:;" title="航拍作品" class="nav-item"
-              >航拍作品</a
-            >
-          </router-link>
-          <!-- <router-link to="/"> -->
-          <a href="javascript:;" title="技术分享" class="nav-item">技术分享</a>
-          <!-- </router-link> -->
+          <router-link to="/" title="博客首页" class="nav-item"
+            >博客首页</router-link
+          >
+          <!-- <a href="javascript:;" title="个人简介" class="nav-item">个人简介</a> -->
+          <router-link to="/picture" title="航拍作品" class="nav-item"
+            >航拍作品</router-link
+          >
+          <router-link to="/" title="技术分享" class="nav-item"
+            >技术分享</router-link
+          >
         </div>
       </div>
     </div>
@@ -64,14 +56,14 @@ export default {
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 10;
-  padding: 0 40px;
+  padding: 0 10%;
   width: 100%;
-  height: 70px;
+  height: 1.2rem;
   box-sizing: border-box;
   transition: transform 1s;
 
   .inner {
-    max-width: 1200px;
+    // max-width: 12rem;
     width: 100%;
     height: 100%;
     margin: 0 auto;
@@ -107,26 +99,32 @@ export default {
   }
 
   .logo {
-    font-size: 22px;
+    font-size: 0.35rem;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     z-index: 1;
   }
 
   .navbox {
-    width: 520px;
+    position: relative;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: right;
-    position: relative;
+
     z-index: 1;
 
     .nav-item {
-      flex: 1;
-      height: 50px;
+      display: block;
+      white-space: nowrap;
+      height: 0.2rem;
       text-align: center;
-      font-size: 14px;
-      line-height: 50px;
-      margin: 0 0 0 40px;
+      font-size: 0.24rem;
+      line-height: 0.2rem;
+      margin-left: 0.7rem;
       transition: all 0.3s ease-out;
 
       &:hover {

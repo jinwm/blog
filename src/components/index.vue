@@ -70,10 +70,11 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url(../assets/bg.jpg) no-repeat center center / 1920px auto;
+    background: url(../assets/bg.jpg) no-repeat center center / cover;
     pointer-events: none;
     z-index: -1;
     transition: transform 1.6s;
+    filter: brightness(85%);
   }
 
   &::before {
@@ -83,43 +84,47 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.65));
-    opacity: .7;
+    background: radial-gradient(
+      circle at center,
+      transparent,
+      rgba(0, 0, 0, 0.5)
+    );
     pointer-events: none;
   }
 
   .main {
     position: absolute;
-    width: 800px;
-    height: 280px;
+    width: 8rem;
+    height: 2.8rem;
     top: 50%;
     left: 50%;
-    margin: -165px 0 0 -400px;
+    margin: -1.9rem 0 0 -4rem;
     transition: all 0.6s 0.6s ease-in-out;
 
     .slogan {
-      font-size: 50px;
+      font-size: 0.65rem;
       color: #f5f5f5;
-      letter-spacing: 4px;
+      letter-spacing: 0.04rem;
     }
 
     .desc {
-      margin: 20px 0 30px;
-      line-height: 27px;
+      margin: 0.1rem 0 0.4rem;
+      line-height: 0.1rem;
       width: 100%;
-      min-height: 100px;
+      min-height: 1.2rem;
       span {
         color: #f5f5f5;
-        letter-spacing: 8px;
-        font-size: 16px;
+        letter-spacing: 0.12rem;
+        font-size: 0.22rem;
         white-space: pre;
         transition: all 1s;
       }
       i {
         display: inline-block;
-        height: 1.2em;
-        width: 2px;
-        margin-top: -3px;
+        height: 0.22rem;
+        width: 0.02rem;
+        position: relative;
+        top: 0.18rem;
         background: #f5f5f5;
         vertical-align: middle;
         animation: opacity 0.4s infinite ease-in-out alternate;
@@ -143,15 +148,16 @@ export default {
       margin: 0 auto;
 
       .btn {
-        margin: 0 20px;
-        width: 160px;
-        height: 40px;
-        border: 2px solid #f5f5f5;
+        margin: 0 0.2rem;
+        width: 1.8rem;
+        height: 0.5rem;
+        border: 0.02rem solid #f5f5f5;
         box-sizing: border-box;
-        border-radius: 30px;
+        border-radius: 0.3rem;
         text-align: center;
-        font-size: #f5f5f5;
-        line-height: 40px;
+        color: #f5f5f5;
+        font-size: 0.24rem;
+        line-height: 0.5rem;
         transition: all 0.5s ease-in-out;
 
         &:hover {

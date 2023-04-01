@@ -65,13 +65,13 @@
       <div v-masonry class="poster-wrap">
         <div
           v-masonry-tile
-          v-for="(item, index) in posters"
+          v-for="(item, index) in 7"
           :key="index"
           class="masonry-item"
         >
           <div class="posterBox">
             <a href="javascript:;" title="" target="_self">
-              <img :src="item" alt="" />
+              <img :src="posters[0]" alt="" />
               <div class="mask-layer"></div>
             </a>
           </div>
@@ -106,7 +106,7 @@ export default {
   created: function () {
     // 引入图片
     const images = require.context("../assets/", false, /\.(png|jpe?g|svg)$/);
-    this.posters = images.keys().map((key) => images(key));
+    this.posters = images.keys().map((key) => "." + images(key));
   },
   mounted: function () {
     this.pageShow = true;
@@ -158,11 +158,11 @@ export default {
   }
 
   .bannerSwiper {
-    max-width: 1920px;
+    // max-width: 19.2rem;
     margin: 0 auto;
     width: 100%;
     // height: 800px;
-    height: 600px;
+    height: 8rem;
     padding: 0;
     position: relative;
 
@@ -218,9 +218,9 @@ export default {
       position: absolute;
       left: 0;
       top: 50%;
-      margin-top: -50px;
+      margin-top: -0.5rem;
       width: 100%;
-      height: 50px;
+      height: 0.5rem;
       transition: all 0.3s;
       opacity: 0;
 
@@ -232,10 +232,10 @@ export default {
       .btn-next {
         position: absolute;
         left: 0;
-        width: 45px;
-        height: 95px;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
+        width: 0.45rem;
+        height: 0.95rem;
+        border-top-right-radius: 0.1rem;
+        border-bottom-right-radius: 0.1rem;
         transition: all 0.3s;
         &:hover {
           background: rgba(0, 0, 0, 0.3);
@@ -252,8 +252,8 @@ export default {
         left: auto;
         right: 0;
         border-radius: 0;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+        border-top-left-radius: 0.1rem;
+        border-bottom-left-radius: 0.1rem;
         svg {
           transform: translate(-45%, -52%);
         }
@@ -263,7 +263,7 @@ export default {
 
   .title-box {
     // max-width: 1200px;
-    margin: 35px auto 20px;
+    margin: 0.35rem auto 0.2rem;
     background: #f5f5f5;
 
     &::before {
@@ -279,35 +279,35 @@ export default {
     }
 
     .title {
-      font-size: 30px;
+      font-size: 0.43rem;
       color: #333333;
-      letter-spacing: 2px;
+      letter-spacing: 0.02rem;
       font-weight: bold;
-      padding-bottom: 10px;
+      padding-bottom: 0.1rem;
     }
     .desc {
-      font-size: 14px;
+      font-size: 0.22rem;
       color: #333333;
-      padding: 15px 0 15px;
-      letter-spacing: 6px;
+      padding: 0.15rem 0.3rem 0.15rem;
+      letter-spacing: 0.02rem;
       position: relative;
 
       &::before {
         content: "";
         position: absolute;
-        width: 40px;
-        height: 1px;
+        width: 0.4rem;
+        height: 0.01rem;
         background: #333333;
-        top: 1px;
+        top: 0.01rem;
         left: 50%;
-        margin-left: -20px;
+        margin-left: -0.2rem;
         opacity: 0.1;
       }
     }
   }
   .poster-wrap {
-    max-width: 1200px;
-    margin: 0 auto 40px;
+    width: 12rem;
+    margin: 0 auto 0.4rem;
 
     .masonry-item {
       width: calc((93%) / 4);
@@ -323,15 +323,15 @@ export default {
           width: 100%;
           position: relative;
           overflow: hidden;
-          border-radius: 4px;
-          transition: all 0.5s ease-out;
+          border-radius: 0.12rem;
+          transition: all 0.3s ease-in-out;
 
           img {
             display: block;
             width: 100%;
             object-fit: cover;
             pointer-events: none;
-            transition: all 0.5s ease-out;
+            transition: all 0.3s ease-in-out;
           }
 
           .mask-layer {
@@ -345,10 +345,10 @@ export default {
           }
 
           &:hover {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0.03rem 0.1rem rgba(0, 0, 0, 0.65);
             img {
-              transform: scale(1.02);
-              filter: brightness(130%);
+              transform: scale(1.05);
+              filter: brightness(120%);
             }
             .mask-layer {
               opacity: 0;
@@ -358,41 +358,57 @@ export default {
       }
       .descBox {
         width: 100%;
+        height: 100%;
         box-sizing: border-box;
-        transform: translateY(-30px);
-        position: relative;
         pointer-events: none;
+        position: relative;
+        z-index: 1;
+        top: -0.35rem;
 
         .top {
           color: #f5f5f5;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 15px;
-          padding: 0 10px;
-
+          padding: 0 0.1rem;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          margin-bottom: 0.2rem;
           h4 {
             text-align: left;
             white-space: nowrap;
-
-            .date {
-              text-align: left;
-              padding: 0 15px;
-              margin-bottom: 25px;
-              white-space: nowrap;
-            }
+            font-size: 0.18rem;
+          }
+          .date {
+            font-size: 0.18rem;
+            text-align: right;
+            padding: 0 0.05rem;
+            white-space: nowrap;
           }
         }
 
         p {
           width: 100%;
-          padding: 0 5px;
+          padding: 0 0.05rem;
           box-sizing: border-box;
           color: #333333;
-          font-size: 14px;
+          font-size: 0.14rem;
           text-align: left;
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .poster-wrap {
+    width: 7.5rem !important;
+    margin: 0 auto 0.4rem;
+
+    .masonry-item {
+      width: calc((92%) / 2) !important;
+      margin: 0 2% 0 !important;
     }
   }
 }
