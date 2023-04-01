@@ -306,7 +306,8 @@ export default {
     }
   }
   .poster-wrap {
-    width: 12rem;
+    // width: 12rem;
+    width: 84.5%;
     margin: 0 auto 0.4rem;
 
     .masonry-item {

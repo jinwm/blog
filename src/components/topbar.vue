@@ -1,23 +1,21 @@
 <template>
-  <transition name="on">
-    <div v-if="show" class="topbar" :class="className">
-      <div class="inner">
-        <router-link to="/" title="JINWM" class="logo">JINWM</router-link>
-        <div class="navbox">
-          <router-link to="/" title="博客首页" class="nav-item"
-            >博客首页</router-link
-          >
-          <!-- <a href="javascript:;" title="个人简介" class="nav-item">个人简介</a> -->
-          <router-link to="/picture" title="航拍作品" class="nav-item"
-            >航拍作品</router-link
-          >
-          <router-link to="/" title="技术分享" class="nav-item"
-            >技术分享</router-link
-          >
-        </div>
+  <div class="topbar on" ref="topbar" :class="className">
+    <div class="inner">
+      <router-link to="/" title="JINWM" class="logo">JINWM</router-link>
+      <div class="navbox">
+        <router-link to="/" title="博客首页" class="nav-item"
+          >博客首页</router-link
+        >
+        <!-- <a href="javascript:;" title="个人简介" class="nav-item">个人简介</a> -->
+        <router-link to="/picture" title="航拍作品" class="nav-item"
+          >航拍作品</router-link
+        >
+        <router-link to="/" title="技术分享" class="nav-item"
+          >技术分享</router-link
+        >
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 <script>
 export default {
@@ -28,7 +26,8 @@ export default {
     };
   },
   mounted: function () {
-    this.show = true;
+    setTimeout(() => this.$refs.topbar.classList.remove("on"));
+
     let self = this;
 
     document.addEventListener("scroll", function () {
@@ -44,12 +43,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.on-enter,
-.on-leave-to {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
 .topbar {
   position: fixed;
   top: 0;
@@ -61,6 +54,11 @@ export default {
   height: 1.2rem;
   box-sizing: border-box;
   transition: transform 1s;
+
+  &.on {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
 
   .inner {
     // max-width: 12rem;
