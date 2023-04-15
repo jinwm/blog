@@ -1,18 +1,18 @@
 <template>
-  <div class="topbar on" ref="topbar" :class="className">
+  <div class="topbar" :class="className">
     <div class="inner">
       <router-link to="/" title="JINWM" class="logo">JINWM</router-link>
       <div class="navbox">
-        <router-link to="/" title="博客首页" class="nav-item"
+        <!-- <router-link to="/" title="博客首页" class="nav-item"
           >博客首页</router-link
-        >
+        > -->
         <!-- <a href="javascript:;" title="个人简介" class="nav-item">个人简介</a> -->
         <router-link to="/picture" title="航拍作品" class="nav-item"
           >航拍作品</router-link
         >
-        <router-link to="/" title="技术分享" class="nav-item"
+        <!-- <router-link to="/" title="技术分享" class="nav-item"
           >技术分享</router-link
-        >
+        > -->
       </div>
     </div>
   </div>
@@ -26,8 +26,6 @@ export default {
     };
   },
   mounted: function () {
-    setTimeout(() => this.$refs.topbar.classList.remove("on"));
-
     let self = this;
 
     document.addEventListener("scroll", function () {
@@ -44,21 +42,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .topbar {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 10;
-  padding: 0 10%;
   width: 100%;
+  padding: 0 10%;
   height: 1.2rem;
   box-sizing: border-box;
-  transition: transform 1s;
-
-  &.on {
-    transform: translate(-50%, -100%);
-    opacity: 0;
-  }
 
   .inner {
     // max-width: 12rem;

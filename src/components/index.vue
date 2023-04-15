@@ -2,14 +2,15 @@
   <transition name="on">
     <div v-if="pageShow" class="container">
       <div class="main">
-        <div class="slogan">JINWM个人博客</div>
+        <div class="slogan">个人博客</div>
         <div class="desc">
           <span>{{ descTxt }}</span>
-          <i v-if="descTxt.length < desc.txt.length"></i>
+          <i v-if="(descTxt.length < desc.txt.length)"></i>
         </div>
         <div class="btns">
-          <a href="#/picture" title="开始" class="btn">开始</a>
-          <!-- <a href="javascript:;" title="按钮" class="btn">按钮</a> -->
+          <router-link to="/picture" title="WORKS" class="btn-works"
+            >WORKS</router-link
+          >
         </div>
       </div>
     </div>
@@ -25,7 +26,7 @@ export default {
       descTimer: null,
       desc: {
         index: 0,
-        txt: "当摄影、设计和编程的力量相遇\n，一个属于自己的个人博客世界就此诞生。\n在这里，记录生活的点滴，\n分享创作的心得，探索无限的可能性。",
+        txt: "在这里，记录生活的点滴，\n分享创作的心得，探索无限的可能性。",
         // txt: "欢迎来到我的个人博客，\n这里记录着我的航拍作品，以及前端技术的探索和实践。\n用镜头记录美好，用代码书写未来，\n让我们一起探寻更多可能性吧！",
       },
     };
@@ -147,7 +148,7 @@ export default {
       justify-content: center;
       margin: 0 auto;
 
-      .btn {
+      .btn-works {
         margin: 0 0.2rem;
         width: 1.8rem;
         height: 0.5rem;

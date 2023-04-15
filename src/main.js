@@ -9,7 +9,7 @@ import './tools/resize.js'
 Vue.use(VueMasonryPlugin);
 Vue.use(ElementUI);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,

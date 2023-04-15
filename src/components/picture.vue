@@ -71,14 +71,14 @@
         >
           <div class="posterBox">
             <a href="javascript:;" title="" target="_self">
-              <img :src="posters[0]" alt="" />
+              <img v-enlarge :src="posters[0]" alt="" />
               <div class="mask-layer"></div>
             </a>
           </div>
           <div class="descBox">
             <div class="top">
-              <h4 class="title">宁波东部新城</h4>
-              <span class="date">2023-10-12</span>
+              <h4 class="title">杭州奥体中心</h4>
+              <span class="date">2022-09-12</span>
             </div>
             <p>
               城市魔法师-上海篇城市魔法师-上海篇城市魔法师-上海篇城市魔法师-上海篇城市魔法师-上海篇
@@ -90,8 +90,12 @@
   </div>
 </template>
 <script>
+import imgEnkarge from "../directives/imgEnkarge.js";
 export default {
   name: "mypicture",
+  directives: {
+    enlarge:imgEnkarge,
+  },
   data: function () {
     return {
       pageShow: false,
@@ -322,6 +326,7 @@ export default {
         a {
           display: block;
           width: 100%;
+          height: fit-content;
           position: relative;
           overflow: hidden;
           border-radius: 0.12rem;
@@ -331,7 +336,6 @@ export default {
             display: block;
             width: 100%;
             object-fit: cover;
-            pointer-events: none;
             transition: all 0.3s ease-in-out;
           }
 
@@ -346,7 +350,7 @@ export default {
           }
 
           &:hover {
-            box-shadow: 0 0.03rem 0.1rem rgba(0, 0, 0, 0.65);
+            box-shadow: 0 0.03rem 0.1rem rgba(0, 0, 0, 0.3);
             img {
               transform: scale(1.05);
               filter: brightness(120%);
