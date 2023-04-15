@@ -9,11 +9,7 @@
       >
         <div
           v-for="(src, index) in posters"
-          :class="[
-            'slide-item',
-            index === curShowBannerIndex ? 'cur' : '',
-            index === preShowBannerIndex ? 'pre' : '',
-          ]"
+          :class="['slide-item', index === curShowBannerIndex ? 'on' : '']"
           :key="index"
         >
           <img :src="src" alt="" />
@@ -65,13 +61,13 @@
       <div v-masonry class="poster-wrap">
         <div
           v-masonry-tile
-          v-for="(item, index) in 7"
+          v-for="(item, index) in posters"
           :key="index"
           class="masonry-item"
         >
           <div class="posterBox">
             <a href="javascript:;" title="" target="_self">
-              <img v-enlarge :src="posters[0]" alt="" />
+              <img v-enlarge :src="item" alt="" />
               <div class="mask-layer"></div>
             </a>
           </div>
@@ -94,14 +90,13 @@ import imgEnkarge from "../directives/imgEnkarge.js";
 export default {
   name: "mypicture",
   directives: {
-    enlarge:imgEnkarge,
+    enlarge: imgEnkarge,
   },
   data: function () {
     return {
       pageShow: false,
       posters: [],
       curShowBannerIndex: 0,
-      preShowBannerIndex: 0,
       bannerHandleTimer: null,
       bannerChangeTimer: null,
       bannerBtnsShow: false,
@@ -123,28 +118,24 @@ export default {
     // 顶部banner切换
     bannerChange: function (n) {
       clearInterval(this.bannerChangeTimer);
-      // if (this.bannerHandleTimer) return;
+      if (this.bannerHandleTimer) return;
       this.bannerChangeTimer = this.bannerAutoPlay();
-      var { curShowBannerIndex, preShowBannerIndex, posters } = this;
+      var { curShowBannerIndex, posters } = this;
       if (curShowBannerIndex == 0 && n == -1) {
         curShowBannerIndex = posters.length - 1;
-        preShowBannerIndex = 0;
       } else if (curShowBannerIndex == posters.length - 1 && n == 1) {
         curShowBannerIndex = 0;
-        preShowBannerIndex = posters.length - 1;
       } else {
-        preShowBannerIndex = curShowBannerIndex;
         curShowBannerIndex += n;
       }
       this.curShowBannerIndex = curShowBannerIndex;
-      this.preShowBannerIndex = preShowBannerIndex;
-      // this.bannerHandleTimer = setTimeout(() => {
-      //   this.bannerHandleTimer = null;
-      // }, 1000);
+      this.bannerHandleTimer = setTimeout(() => {
+        this.bannerHandleTimer = null;
+      }, 800);
     },
     bannerAutoPlay: function () {
       // if (this.bannerChangeTimer) return null;
-      return setInterval(() => this.bannerChange(1), 5000);
+      return setInterval(() => this.bannerChange(1), 3000);
     },
   },
 };
@@ -200,14 +191,11 @@ export default {
       left: 0;
       width: 100%;
       height: 100%;
+      opacity: 1;
+      transition: all 0.5s 0.5s ease-out;
       opacity: 0;
-      transition: all 0.5s ease-out;
-
-      &.cur {
-        opacity: 1;
-      }
-      &.pre {
-        transition: all 0.5s 0.5s ease-out;
+      &.on {
+        transition: all 0.5s ease-out;
         opacity: 1;
       }
 
@@ -227,6 +215,7 @@ export default {
       height: 0.5rem;
       transition: all 0.3s;
       opacity: 0;
+      pointer-events: none;
 
       &.on {
         opacity: 1;
@@ -241,6 +230,7 @@ export default {
         border-top-right-radius: 0.1rem;
         border-bottom-right-radius: 0.1rem;
         transition: all 0.3s;
+        pointer-events: auto;
         &:hover {
           background: rgba(0, 0, 0, 0.3);
         }
