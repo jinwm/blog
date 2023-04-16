@@ -61,7 +61,7 @@
       <div v-masonry class="poster-wrap">
         <div
           v-masonry-tile
-          v-for="(item, index) in posters"
+          v-for="(item, index) in [...posters,...posters,...posters]"
           :key="index"
           class="masonry-item"
         >
@@ -302,6 +302,7 @@ export default {
   .poster-wrap {
     // width: 12rem;
     width: 84.5%;
+    overflow: hidden;
     margin: 0 auto 0.4rem;
 
     .masonry-item {
@@ -396,9 +397,10 @@ export default {
   }
 }
 
+// 移动端
 @media screen and (max-width: 750px) {
   .poster-wrap {
-    width: 7.5rem !important;
+    width: 95% !important;
     margin: 0 auto 0.4rem;
 
     .masonry-item {

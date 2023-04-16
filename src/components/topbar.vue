@@ -3,16 +3,13 @@
     <div class="inner">
       <router-link to="/" title="JINWM" class="logo">JINWM</router-link>
       <div class="navbox">
-        <!-- <router-link to="/" title="博客首页" class="nav-item"
-          >博客首页</router-link
-        > -->
-        <!-- <a href="javascript:;" title="个人简介" class="nav-item">个人简介</a> -->
-        <router-link to="/picture" title="航拍作品" class="nav-item"
-          >航拍作品</router-link
+        <router-link
+          :class="['nav-item', $route.path == navItem.path ? 'on' : '']"
+          v-for="(navItem, index) in navList"
+          :to="navItem.path"
+          :key="index"
+          >{{ navItem.name }}</router-link
         >
-        <!-- <router-link to="/" title="技术分享" class="nav-item"
-          >技术分享</router-link
-        > -->
       </div>
     </div>
   </div>
@@ -23,10 +20,17 @@ export default {
     return {
       show: false,
       className: "pattern1",
+      navList: [
+        { name: "首页", path: "/" },
+        // {name:'个人简介',path:''},
+        { name: "航拍", path: "/picture" },
+        // {name:'技术分享',path:''},
+      ],
     };
   },
   mounted: function () {
     let self = this;
+    // console.log(this.$route.path);
 
     document.addEventListener("scroll", function () {
       if (document.documentElement.scrollTop > 100) {
@@ -111,9 +115,11 @@ export default {
       line-height: 0.2rem;
       margin-left: 0.7rem;
       transition: all 0.3s ease-out;
+      opacity: 0.72;
 
+      &.on,
       &:hover {
-        opacity: 0.8;
+        opacity: 1;
       }
     }
   }

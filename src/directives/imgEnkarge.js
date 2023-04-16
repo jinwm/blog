@@ -5,7 +5,7 @@ import $ from 'jquery';
 
 if ($("#enlargeWrap").length === 0) {
     $('body').append(`
-    <div id="enlargeWrap"><div class="enlarge-layer"></div><div class="enlargeImgBox"></div></div>
+    <div id="enlargeWrap"><div class="enlarge-layer"></div></div>
     <style>
     #enlargeWrap {
         position: fixed;
@@ -30,106 +30,97 @@ if ($("#enlargeWrap").length === 0) {
         left: 0;
         top: 0;
         z-index: 1;
-        width: 100%;
-        height: 100%;
+        width: fit-content;
+        height: fit-content;
+        max-width: 100vw;
+        max-height: 100vh;
         pointer-events: none;
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       #enlargeWrap .enlargeImgBox img {
-        position: absolute;
+        display: block;
         pointer-events: auto;
-      }              
-    </style>`);
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    </style>
+    `);
 }
 const enlargeWrap = $("#enlargeWrap");
-
+let isHandleClose = true;
 let resizeTimer = null;
+let attrs = null;
+
 $(window).on('resize', function () {
     if (resizeTimer) clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
-        const bigImg = $('#bigImg');
-        let winWidth = document.documentElement.clientWidth;
-        let bigImgWidth = winWidth * 0.8;
-        let bigImgHeight = bigImgWidth / bigImg.width() * bigImg.height();
-
-        let left = bigImg.parent().width() / 2 - bigImgWidth / 2;
-        let top = bigImg.parent().height() / 2 - bigImgHeight / 2;
-
-        bigImg.animate({
-            width: bigImgWidth,
-            height: bigImgHeight,
-            left,
-            top,
-        }, 300)
+        bigImgToMiddle();
     }, 50)
 })
 
-let isHandleClose = true;
+function bigImgToMiddle(duration = 300, callback) {
+    const enlargeImgBox = enlargeWrap.find('.enlargeImgBox')
+
+    let winWidth = document.documentElement.clientWidth,
+        winHeight = document.documentElement.clientHeight,
+        bigImgWidth = winWidth * 0.85,
+        bigImgHeight = winHeight * 0.85;
+
+    let left = winWidth / 2 - bigImgWidth / 2;
+    let top = winHeight / 2 - bigImgHeight / 2;
+
+    enlargeImgBox.animate({
+        width: bigImgWidth,
+        height: bigImgHeight,
+        left,
+        top,
+    }, duration, function () {
+        typeof callback === 'function' && callback();
+    })
+}
+
 export default {
     bind: function (el) {
         $("#enlargeWrap").on('click', '.enlarge-layer', function () {
             if (!isHandleClose) return;
-            enlargeWrap.find('.enlargeImgBox>img').animate({
-                width: 0,
-                height: 0,
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%,-50%)',
-            }, 500);
-            enlargeWrap.find('.enlarge-layer').fadeOut(500);
-            $('body').css('overflow', 'initial');
+            enlargeWrap.find('.enlarge-layer').fadeOut(300);
+            enlargeWrap.find('.enlargeImgBox').animate({
+                ...attrs,
+                opacity: 0.5
+            }, 300, () => {
+                attrs = null;
+                enlargeWrap.hide().find('.enlargeImgBox').remove();
+                $('body').css('overflow', 'initial');
 
-            setTimeout(() => {
-                enlargeWrap.find('.enlargeImgBox').html('');
-                enlargeWrap.hide();
-                isHandleClose = false;
-            }, 800)
+                setTimeout(() => isHandleClose = false, 100);
+            });
         })
 
         $(el).on('click', function () {
             const self = $(el);
             let src = $(this).attr('src');
             let img = new Image();
-            img.id = 'bigImg';
             img.src = src;
-            enlargeWrap.find('.enlargeImgBox').html(img);
-            const bigImg = $('#bigImg');
-            bigImg.css({
+            attrs = {
                 width: self.width(),
                 height: self.height(),
                 left: self.offset().left,
-                top: self.offset().top - $(window).scrollTop()
-            })
+                top: self.offset().top - $(window).scrollTop(),
+            }
+            enlargeWrap.append('<div class="enlargeImgBox"></div>');
+            enlargeWrap.find('.enlargeImgBox').css({
+                ...attrs,
+                opacity: 1
+            }).html(img);
             $('body').css('overflow', 'hidden');
             enlargeWrap.show();
-
-            let winWidth = document.documentElement.clientWidth,
-                winHeight = document.documentElement.clientHeight;
-            let bigImgWidth = 0;
-            let bigImgHeight = 0;
-            if (img.width >= img.height) {
-                bigImgWidth = winWidth * 0.8;
-                bigImgHeight = bigImgWidth / bigImg.width() * bigImg.height();
-            } else {
-                bigImgHeight = winHeight * 0.8;
-                bigImgWidth = bigImgHeight / bigImg.height() * bigImg.width();
-            }
-
-            // 等待主线任务完成再修改最终的位置和宽高
-            setTimeout(() => {
-                enlargeWrap.find('.enlarge-layer').fadeIn(800);
-
-                let left = bigImg.parent().width() / 2 - bigImgWidth / 2;
-                let top = bigImg.parent().height() / 2 - bigImgHeight / 2;
-
-                bigImg.animate({
-                    width: bigImgWidth,
-                    height: bigImgHeight,
-                    left,
-                    top,
-                }, 600, function () {
-                    isHandleClose = true;
-                })
-            })
+            enlargeWrap.find('.enlarge-layer').fadeIn(600);
+            bigImgToMiddle(600, () => isHandleClose = true);
         })
     },
 }
